@@ -1,3 +1,4 @@
+import Terminal from "@/components/terminal";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -22,9 +23,7 @@ export function Editor() {
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={25}>
-            <div>
-              <span className="font-semibold">Terminal</span>
-            </div>
+            <Terminal socketUrl="ws://localhost:18764/ws" />
           </ResizablePanel>
         </ResizablePanelGroup>
       </ResizablePanel>
