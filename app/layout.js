@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import AppHeader from "@/components/ui/app-header";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +22,29 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background overflow-hidden`}
+        style={{ minHeight: "100vh", height: "100vh" }}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AppHeader />
+          <main
+            style={{
+              height: "calc(100vh - 4rem)",
+              minHeight: 0,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              padding: "2px",
+            }}
+          >
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
