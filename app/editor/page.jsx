@@ -1,3 +1,4 @@
+import FolderStructure from "@/components/folder-structure";
 import Terminal from "@/components/terminal";
 import {
   ResizableHandle,
@@ -5,13 +6,11 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-export function Editor() {
+export default function Editor() {
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={15}>
-        <div>
-          <span className="font-semibold">File</span>
-        </div>
+        <FolderStructure />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={60}>
@@ -23,7 +22,7 @@ export function Editor() {
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={25}>
-            <Terminal socketUrl="ws://localhost:18764/ws" />
+            <Terminal />
           </ResizablePanel>
         </ResizablePanelGroup>
       </ResizablePanel>

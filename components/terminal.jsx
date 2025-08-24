@@ -4,7 +4,8 @@ import { Terminal as XTerm } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 import "xterm/css/xterm.css";
 
-export default function Terminal({ socketUrl }) {
+export default function Terminal() {
+  const socketURL = process.env.NEXT_PUBLIC_SOCKET_URL;
   const terminalRef = useRef(null);
   const fitAddonRef = useRef(null);
   const socketRef = useRef(null);

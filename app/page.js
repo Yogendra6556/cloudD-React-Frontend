@@ -1,5 +1,5 @@
-import { Editor } from "./editor";
+import CreateProject from "./create-project";
 
 export default function Home() {
-  return <Editor />;
+  return <CreateProject />;
 }
