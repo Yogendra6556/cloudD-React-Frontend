@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import useContainer from "@/hooks/useContainer";
 import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { poll } from "@/lib/utils";
 
 const TEMPLATES = {
   frontend: {
@@ -40,7 +41,7 @@ const TEMPLATES = {
 
 const CreateProject = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const { spinContainer } = useContainer();
+  const { spinContainer, token, getContainerDetails, loading } = useContainer();
 
   const handleCreateProject = async () => {
     if (selectedTemplate) {
@@ -53,6 +54,15 @@ const CreateProject = () => {
       };
       const result = await spinContainer(payload);
       console.log("Container spun up:", result);
+
+      if (result.token) {
+        const details = await poll(
+          () => getContainerDetails(result.token),
+          (res) => res.status === "RUNNING",
+          2000
+        );
+        console.log("Container is running:", details);
+      }
     }
   };
 
@@ -95,12 +105,12 @@ const CreateProject = () => {
       <div className="fixed bottom-8 right-8 z-50">
         <Button
           variant="default"
-          disabled={!selectedTemplate}
+          disabled={!selectedTemplate || loading}
           onClick={handleCreateProject}
-          className="shadow-lg px-6 py-3 text-lg"
+          className="shadow-lg px-6 py-3 text-lg flex items-center gap-2"
         >
           Create Project
-          <ArrowRight />
+          {loading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
         </Button>
       </div>
     </div>
